@@ -78,7 +78,6 @@ def obtener_edificio(request, id):
     informacion_template = {'edificio': edificio}
     return render(request, 'obtener_edificio.html', informacion_template)
 
-
 def crear_edificio(request):
     """
     """
@@ -147,7 +146,7 @@ def editar_departamento(request, id):
         formulario = DepartamentoForm(instance=departamento)
     diccionario = {'formulario': formulario}
 
-    return render(request, 'crearDepartamento.html', diccionario)
+    return render(request, 'editarDepartamento.html', diccionario)
 
 def crear_departamento_edificio(request, id):
     """
@@ -194,6 +193,7 @@ class EdificioViewSet(viewsets.ModelViewSet):
     queryset = Edificio.objects.all()
     serializer_class = EdificioSerializer
     #permission_classes = [permissions.IsAuthenticated]
+
 
 
 class DepartamentoViewSet(viewsets.ModelViewSet):

@@ -1,27 +1,28 @@
 <template>
     <div class="pt-5">
-        <div v-if="estudiantes && estudiantes.length">
-            <div class="card mb-3" v-for="estudiante of estudiantes" v-bind:key="estudiante.id">
+        {{ edificios.length }}
+        <div v-if="edificios && edificios.length">
+            <div class="card mb-3" v-for="edificio of edificios" v-bind:key="edificio.id">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <div class="card-body">
-                            <h5 class="card-title">Nombre: {{ estudiante.nombre }}</h5>
-                            <h5 class="card-text">Apellido: {{ estudiante.apellido }}</h5>
+                            <h5 class="card-title">Nombre: {{ edificio.nombre }}</h5>
+                            <h5 class="card-text">Dirección: {{ edificio.direccion }}</h5>
                             <br>
-                            <router-link :to="{name: 'edit', params: { id: estudiante.id }}" class="btn btn-sm btn-primary">Editar</router-link>
-                            <button class="btn btn-danger btn-sm ml-1" v-on:click="deleteEstudiante(estudiante)">Eliminar</button>
+                            <router-link :to="{name: 'edit', params: { id: edificio.id }}" class="btn btn-sm btn-primary">Editar</router-link>
+                            <button class="btn btn-danger btn-sm ml-1" v-on:click="deleteEdificio(edificio)">Eliminar</button>
                         </div>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <p class="card-text">Cédula: {{ estudiante.cedula }}</p>
-                            <p class="card-text">Correo: {{ estudiante.correo }}</p>
+                            <p class="card-text">Ciudad: {{ edificio.ciudad }}</p>
+                            <p class="card-text">Tipo: {{ edificio.tipo_edificio }}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <p  v-if="estudiantes.length == 0"> Sin Estudiantes</p>
+        <p  v-if="edificios.length == 0"> Sin Edificios</p>
     </div>
 </template>
 <script>
@@ -31,14 +32,14 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            estudiantes: []
+            edificios: []
         }
     },
     created() {
         this.all();
     },
     methods: {
-        deleteEstudiante: function(e) {
+        deleteEdificio: function(e) {
             if (confirm('Eliminar ' + e.nombre)) {
                 axios.delete(e.url)
                     .then( response => {
@@ -47,9 +48,9 @@ export default {
             }
         },
         all: function () {
-            axios.get('http://127.0.0.1:8000/api/estudiantes/')
+            axios.get('http://127.0.0.1:8000/api/edificios/')
                 .then( response => {
-                    this.estudiantes = response.data
+                    this.edificios = response.data['results']
                 });
         }
     },

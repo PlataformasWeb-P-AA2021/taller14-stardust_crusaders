@@ -7,61 +7,56 @@
                     type="text"
                     class="form-control"
                     id="nombre"
-                    v-model="estudiante.nombre"
+                    v-model="edificio.nombre"
                     v-validate="'required'"
                     name="nombre"
-                    placeholder="Ingres su nombre"
-                    :class="{'is-invalid': errors.has('estudiante.nombre') && submitted}">
+                    placeholder="Ingres el nombre"
+                    :class="{'is-invalid': errors.has('edificio.nombre') && submitted}">
                 <div class="invalid-feedback">
                     Please provide a valid name.
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="apellido">Apellido</label>
+                <label for="direccion">Dirección</label>
                 <input
                     type="text"
                     class="form-control"
-                    id="nombre"
-                    v-model="estudiante.apellido"
+                    id="direccion"
+                    v-model="edificio.direccion"
                     v-validate="'required'"
-                    name="apellido"
-                    placeholder="Ingres su apellido"
-                    :class="{'is-invalid': errors.has('estudiante.apellido') && submitted}">
+                    name="direccion"
+                    placeholder="Ingres la dirección"
+                    :class="{'is-invalid': errors.has('edificio.direccion') && submitted}">
                 <div class="invalid-feedback">
-                    Please provide a valid apellido.
+                    Please provide a valid direccion.
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="cedula">Cédula</label>
+                <label for="ciudad">Ciudad</label>
                 <input
                     type="text"
                     class="form-control"
-                    id="cedula"
-                    v-model="estudiante.cedula"
+                    id="ciudad"
+                    v-model="edificio.ciudad"
                     v-validate="'required'"
-                    name="apellido"
-                    placeholder="Ingres su cédula"
-                    :class="{'is-invalid': errors.has('estudiante.cedula') && submitted}">
+                    name="ciudad"
+                    placeholder="Ingres la ciudad"
+                    :class="{'is-invalid': errors.has('edificio.ciudad') && submitted}">
                 <div class="invalid-feedback">
-                    Please provide a valid cedula.
+                    Please provide a valid ciudad.
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="correo">Correo</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="correo"
-                    v-model="estudiante.correo"
-                    v-validate="'required'"
-                    name="apellido"
-                    placeholder="Ingres su correo"
-                    :class="{'is-invalid': errors.has('estudiante.correo') && submitted}">
+                <label for="tipo_edificio">Tipo</label>
+                <select v-model="edificio.tipo_edificio">
+                    <option value="residencial">Residencial</option>
+                    <option value="comercial">Comercial</option>
+                </select>
                 <div class="invalid-feedback">
-                    Please provide a valid correo.
+                    Please provide a valid tipo_edificio.
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Crear</button>
@@ -76,11 +71,11 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            estudiante: {
+            edificio: {
                 nombre: '',
-                apellido: '',
-                correo: '',
-                cedula: '',
+                direccion: '',
+                ciudad: '',
+                tipo_edificio: '',
             },
             submitted: false
         }
@@ -92,9 +87,9 @@ export default {
                 if (!result) {
                     return;
                 }
-                console.log(this.correo)
-                axios.post('http://127.0.0.1:8000/api/estudiantes/',
-                        this.estudiante
+                console.log(this.direccion)
+                axios.post('http://127.0.0.1:8000/api/edificios/',
+                        this.edificio
                     )
                     .then(response => {
                         this.$router.push('/');
